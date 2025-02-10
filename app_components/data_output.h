@@ -1,5 +1,5 @@
 // Вывод общей информации
-void dataOutput(RowData& pdata) {
+void dataOutput(RowData &pdata) {
     std::cout << "Название: " << pdata.name << std::endl;
     if (pdata.mass != -274) std::cout << "Масса (Mj): " << pdata.mass << std::endl;
     if (pdata.radius != -274) std::cout << "Радиус (Rj): " << pdata.radius << std::endl;
@@ -104,11 +104,11 @@ void getPrepared(RowData pdata, int i) {
     csvParser(pdata);
     getKeplerThird(pdata);
     getRGM(pdata);
-    std::cout << colTxt("========================================", 30).str() << std::endl;    
+    std::cout << colTxt("========================================", 30).str() << std::endl;
 }
 
 // Функции меню
-void menuAction(RowData& pdata, float& bond_albedo) {
+void menuAction(RowData &pdata, float &bond_albedo) {
     switch (selected) {
     case 1:
         getPrepared(pdata, 1);
@@ -121,7 +121,7 @@ void menuAction(RowData& pdata, float& bond_albedo) {
     case 3:
         getPrepared(pdata, 1);
         gadanieCall(pdata);
-        gadanieResults(pdata, bond_albedo);
+        gadanieResults(bond_albedo, pdata);
         break;
     case 4:
         pdata.name = "15 Sge b";

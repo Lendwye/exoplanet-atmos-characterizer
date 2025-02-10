@@ -1,5 +1,6 @@
+
 // Перевод из астрономических значений в СИ
-void fromSourceToSI(RowData& pdata) {
+void fromSourceToSI(RowData &pdata) {
     pdata.orbital_period = pdata.orbital_period * sec_per_day;
     pdata.semi_major_axis = pdata.semi_major_axis * au_to_meters;
     pdata.mass = pdata.mass * jupiter_mass;
@@ -8,7 +9,7 @@ void fromSourceToSI(RowData& pdata) {
 }
 
 // Перевод из СИ в астрономические значений
-void fromSIToSource(RowData& pdata) {
+void fromSIToSource(RowData &pdata) {
     pdata.orbital_period = pdata.orbital_period / sec_per_day;
     pdata.semi_major_axis = pdata.semi_major_axis / au_to_meters;
     pdata.mass = pdata.mass / jupiter_mass;
@@ -17,7 +18,7 @@ void fromSIToSource(RowData& pdata) {
 }
 
 // Получение T, a, Mj, Ms
-void getKeplerThird(RowData& pdata) {
+void getKeplerThird(RowData &pdata) {
     int unknown_count = 0; // количество неизвестных
     if (pdata.orbital_period <= 0) {
         unknown_count++;
@@ -45,7 +46,7 @@ void getKeplerThird(RowData& pdata) {
             // Вычисляем период T
             double squared_period = (4 * M_PI * M_PI * pow(pdata.semi_major_axis, 3)) / (G * (pdata.star_mass + pdata.mass));
             pdata.orbital_period = sqrt(squared_period); // Извлекаем квадратный корень
-            fromSIToSource(pdata); // Преобразуем результат в нужные единицы
+            fromSIToSource(pdata);                       // Преобразуем результат в нужные единицы
             std::cout << "KT: T = " << pdata.orbital_period << " дней" << std::endl;
         } else if (pdata.semi_major_axis <= 0) {
             // Вычисляем большую полуось a
@@ -69,7 +70,7 @@ void getKeplerThird(RowData& pdata) {
 }
 
 // Получение Rj, surface_gravity, Mj
-void getRGM(RowData& pdata) {
+void getRGM(RowData &pdata) {
     int unknown_count = 0; // количество неизвестных
 
     // Проверяем, какие параметры неизвестны
@@ -118,20 +119,20 @@ void getRGM(RowData& pdata) {
 }
 
 // Избавление от pdata.temp_any
-void getTempAny(RowData& pdata) {
-    if (pdata.temp_calculated > -274) 
+void getTempAny(RowData &pdata) {
+    if (pdata.temp_calculated > -274)
         temp_any = pdata.temp_calculated;
-    if (pdata.temp_measured > -274) 
+    if (pdata.temp_measured > -274)
         temp_any = pdata.temp_measured; // бОльший приоритет измеренной температуре, нежели посчитанной по T_eff
     else std::cout << "Нет температуры\n";
 }
 
-void getBondAlbedo(RowData& pdata, float& bond_albedo) {
+void getBondAlbedo(RowData &pdata, float &bond_albedo) {
     bond_albedo = pdata.geometric_albedo * 0.743009549402362;
     // q = 0.816019098804724;
     // A = pq; q -- фазовый интеграл (средний на основе данных о телах СС)
 }
 
 void catchErrors() {
-    // тут должен быть код, который возвращает пользователя обратно в меню в случае, если для планеты отсутствуют данные (если getKeplerThird и getRGM не удалось выполнить, например)
+    // тут должен
 }

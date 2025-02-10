@@ -1,6 +1,6 @@
 int g_row_number = -1;
 
-void getName(RowData& pdata) {
+void getName(RowData &pdata) {
     std::cout << colTxt("Введите название планеты: ", 33).str();
     std::getline(std::cin >> std::ws, pdata.name); // ws - на случай лишних пробелов перед вводом, pdata.name - название планеты
     for (char &c : pdata.name) {
@@ -22,7 +22,7 @@ void getName(RowData& pdata) {
     exit(0);
 }
 
-void getName2(RowData& pdata) {
+void getName2(RowData &pdata) {
     std::cout << colTxt("Моделирование: ", 33).str() << pdata.name << std::endl;
     rapidcsv::Document doc("catalogue.csv");
     auto names = doc.GetColumn<std::string>(1); // получение второго столбца (с названиями) в виде вектора строк
@@ -34,7 +34,7 @@ void getName2(RowData& pdata) {
     }
 }
 
-void csvParser(RowData& pdata) {
+void csvParser(RowData &pdata) {
     rapidcsv::Document doc("catalogue.csv");
     auto row = doc.GetRow<std::string>(g_row_number); // получение строки g_row_number (i) в виде вектора строк
 
